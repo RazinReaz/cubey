@@ -1,0 +1,4 @@
+- blinking
+- expressions
+- joyful state
+    - squash and stretch using scale()?
