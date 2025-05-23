@@ -1,6 +1,6 @@
 let z = -20;
 const screen_z = 150;
-const WIDTH = 700;
+const WIDTH = 500;
 const HEIGHT = 500;
 
 const ground_y = 100;
@@ -97,7 +97,8 @@ function face_towards(target, center) {
 function setup() {
   createCanvas(WIDTH, HEIGHT, WEBGL);
   cube_center = createVector(0, 0, z);
-  mouse_vec = createVector(0, 0, screen_z);
+  mouse_vec = createVector(-10000, -10000, screen_z);
+  
   cube_destination = createVector(random(-0.5, 0.5) * width, random(-0.5, 0.5) * height, screen_z)
   cube_facing = createVector(random(-0.5, 0.5) * width, random(-0.5, 0.5) * height, screen_z)
   frantic_timer = new Timer(100);
@@ -109,16 +110,15 @@ function draw() {
   // noStroke()
   // lights()
 
-  mouse_vec.set(mouseX - width / 2, mouseY - height/ 2, screen_z);
-  
   cube_state = update_state(mouse_vec)
+  mouse_vec.set(mouseX - width / 2, mouseY - height/ 2, screen_z);
 
   if (cube_state == STATE.FRANTIC) {
     if(frantic_timer.time_over()) {
-      console.log("time over. seeking new vector");
       cube_destination = createVector(random(-0.5, 0.5) * width, random(-0.5, 0.5) * height, screen_z)
     }
     frantic_timer.start_with_random_duration(50, 200);
+
   } else if (cube_state == STATE.HAPPY) {
     cube_destination = mouse_vec
     frantic_timer.reset()
